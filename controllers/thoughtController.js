@@ -11,7 +11,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-  // Get a thought
+  // Get a thought by ID
   async getSingleThought(req, res) {
     try {
       const thought = await Thought.findOne({ _id: req.params.thoughtId });
@@ -37,16 +37,13 @@ module.exports = {
         { $addToSet: { thoughts: thought._id } }, // Use thought._id here
         { runValidators: true, new: true }
       );
-  
-      // Send the response after both operations are completed
       res.json(thought);
-  
     } catch (err) {
       console.log(err);
       return res.status(500).json(err);
     }
   },
-  // Delete a course
+  // Delete a thought
   async deleteThought(req, res) {
     try {
       const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
